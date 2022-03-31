@@ -5,11 +5,11 @@ public class Calculator {
     private static int x = 5;
 
     public static int minus(int b) {
-        return x - b;
+        return b - x;
     }
 
     public int divide(int c) {
-        return x / c;
+        return c / x;
     }
 
     public int sumAllOperations(int b, int c, int y, int a) {
@@ -32,11 +32,9 @@ public class Calculator {
         Calculator calculator = new Calculator();
         int rsl = calculator.multiply(5);
         System.out.println(rsl);
-        Calculator calculator2 = new Calculator();
-        int rsl2 = calculator2.divide(5);
+        int rsl2 = calculator.divide(5);
         System.out.println(rsl2);
-        Calculator calculator3 = new Calculator();
-        int rsl3 = calculator3.sumAllOperations(4, 5, 10, 5);
+        int rsl3 = calculator.sumAllOperations(4, 5, 10, 5);
         System.out.println(rsl3);
     }
 }
