@@ -25,7 +25,7 @@ public class Library {
 
         for (int index = 0; index < shelf.length; index++) {
             Book wholeShelf = shelf[index];
-            if (wholeShelf.getName() == "Clean code") {
+            if ("Clean code".equals(wholeShelf)) {
                 System.out.println(wholeShelf.getName() + " - " + wholeShelf.getPages());
             }
         }
