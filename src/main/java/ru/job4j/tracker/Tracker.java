@@ -25,7 +25,8 @@ public class Tracker {
                 rsl[count] = items[index];
                 count++;
             }
-        } return Arrays.copyOf(rsl, count);
+        }
+        return Arrays.copyOf(rsl, count);
     }
 
     private int indexOf(int id) {
@@ -51,6 +52,22 @@ public class Tracker {
                 item.setId(id);
                 items[index] = item;
                 rsl = true;
+            }
+        }
+        return rsl;
+    }
+
+    public boolean delete(int id) {
+        boolean rsl = false;
+        for (int index = 0; index < size; index++) {
+            if (indexOf(id) == index) {
+                rsl = true;
+                int start = index + 1;
+                int distPos = index;
+                int length = size - index - 1;
+                System.arraycopy(items, start, items, distPos, length);
+                items[size - 1] = null;
+                size--;
             }
         } return rsl;
     }
