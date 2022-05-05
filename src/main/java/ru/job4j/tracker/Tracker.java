@@ -46,28 +46,22 @@ public class Tracker {
     }
 
     public boolean replace(int id, Item item) {
-        boolean rsl = false;
-        for (int index = 0; index < size; index++) {
-            if (items[index].equals(findById(id)) && index != -1) {
-                item.setId(id);
-                items[index] = item;
-                rsl = true;
-            }
-        } return rsl;
+        item.setId(id);
+        int index = indexOf(id);
+        boolean rsl = index != -1;
+        if (rsl) {
+            items[index] = item;
+        }
+        return rsl;
     }
 
     public boolean delete(int id) {
-        boolean rsl = false;
-        for (int index = 0; index < size; index++) {
-            if (indexOf(id) == index && index != -1) {
-                rsl = true;
-                int start = index + 1;
-                int distPos = index;
-                int length = size - index - 1;
-                System.arraycopy(items, start, items, distPos, length);
-                items[size - 1] = null;
-                size--;
-            }
-        } return rsl;
+        int index = indexOf(id);
+        boolean rsl = index != -1;
+        System.arraycopy(items, index + 1, items, index, size - index - 1);
+        items[size - 1] = null;
+        size--;
+        rsl = true;
+        return rsl;
+        }
     }
-}
