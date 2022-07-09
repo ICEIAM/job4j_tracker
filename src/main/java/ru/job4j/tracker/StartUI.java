@@ -25,7 +25,8 @@ public class StartUI {
         UserAction[] actions = {
                 new CreateAction(), new ShowAction(),
                 new DeleteAction(), new EditAction(),
-                new FindByIdAction(), new FindByNameAction()
+                new FindByIdAction(), new FindByNameAction(),
+                new Exit()
         };
         new StartUI().init(input, tracker, actions);
     }
