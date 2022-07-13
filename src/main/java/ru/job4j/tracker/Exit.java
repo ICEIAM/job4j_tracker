@@ -1,7 +1,10 @@
 package ru.job4j.tracker;
 
 public class Exit implements UserAction {
-    public Exit(Output output) {
+    private final Output out;
+
+    public Exit(Output out) {
+        this.out = out;
     }
 
     public String name() {
