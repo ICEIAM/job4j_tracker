@@ -42,6 +42,7 @@ public class StartUITest {
     public void showAllActionSuccessfully() {
         Output out = new StabOutput();
         Tracker tracker = new Tracker();
+        Item one = tracker.add(new Item("test1"));
         UserAction[] actions = new UserAction[]{
                 new ShowAction(out),
                 new Exit(out)
@@ -54,7 +55,7 @@ public class StartUITest {
                         + "0. Show all items" + System.lineSeparator()
                         + "1. Exit" + System.lineSeparator()
                         + "=== Show all items ===" + System.lineSeparator()
-                        + "Хранилище еще не содержит заявок" + System.lineSeparator()
+                        + one + System.lineSeparator()
                         + "Menu." + System.lineSeparator()
                         + "0. Show all items" + System.lineSeparator()
                         + "1. Exit" + System.lineSeparator()
@@ -65,20 +66,20 @@ public class StartUITest {
     public void findByNameActionSuccessfully() {
         Output out = new StabOutput();
         Tracker tracker = new Tracker();
+        Item one = tracker.add(new Item("test"));
         UserAction[] actions = new UserAction[]{
                 new FindByNameAction(out),
                 new Exit(out)
         };
-        String name = "test";
         Input in = new StubInput(
-                new String[]{"0", name, "1"});
+                new String[]{"0", "test", "1"});
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu." + System.lineSeparator()
                         + "0. Find item by name" + System.lineSeparator()
                         + "1. Exit" + System.lineSeparator()
                         + "=== Find items by name ===" + System.lineSeparator()
-                        + "Заявки с именем: " + name + " не найдены." + System.lineSeparator()
+                        + one + System.lineSeparator()
                         + "Menu." + System.lineSeparator()
                         + "0. Find item by name" + System.lineSeparator()
                         + "1. Exit" + System.lineSeparator()
@@ -105,8 +106,7 @@ public class StartUITest {
                         + "0. Find item by id" + System.lineSeparator()
                         + "1. Exit" + System.lineSeparator()
                         + "=== Find item by id ===" + System.lineSeparator()
-                        + "Item{id=" + item.getId() + ", name='" + item.getName()
-                        + toFormat +  "}" + System.lineSeparator()
+                        + item + System.lineSeparator()
                         + "Menu." + System.lineSeparator()
                         + "0. Find item by id" + System.lineSeparator()
                         + "1. Exit" + System.lineSeparator()
