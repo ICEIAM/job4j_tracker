@@ -88,11 +88,8 @@ public class StartUITest {
 
     @Test
     public void findByIdActionSuccessfully() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
         Output out = new StabOutput();
         Tracker tracker = new Tracker();
-        LocalDateTime created = LocalDateTime.now();
-        String toFormat = "', created=" + created.format(formatter);
         Item item = tracker.add(new Item("Just an item"));
         UserAction[] actions = new UserAction[]{
                 new FindByIdAction(out),
@@ -112,4 +109,27 @@ public class StartUITest {
                         + "1. Exit" + System.lineSeparator()
         ));
     }
+
+    @Test
+    public void whenInvalidExit() {
+        Output out = new StabOutput();
+        Input in = new StubInput(
+                new String[] {"8", "0"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = new UserAction[]{
+                new Exit(out)
+        };
+        new StartUI(out).init(in, tracker, actions);
+        String ln = System.lineSeparator();
+        assertThat(out.toString(), is(
+                        "Menu." + ln
+                                + "0. Exit" + ln
+                                + "Wrong input, you can select: 0 - 0" + ln
+                                + "Menu." + ln
+                                + "0. Exit" + ln
+                )
+        );
+    }
+
 }
