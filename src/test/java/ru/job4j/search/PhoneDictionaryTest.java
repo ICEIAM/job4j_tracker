@@ -2,10 +2,10 @@ package ru.job4j.search;
 
 import org.junit.Test;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 
 public class PhoneDictionaryTest {
 
@@ -27,8 +27,6 @@ public class PhoneDictionaryTest {
                 new Person("Dmitriy", "Lukin", "829032", "Moscow")
         );
         ArrayList<Person> persons = phones.find("213");
-        for (Person phone1 : persons) {
-            assertThat(persons, is(phone1));
+        assertTrue(persons.isEmpty());
         }
     }
-}
