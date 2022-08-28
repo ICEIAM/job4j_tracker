@@ -19,15 +19,13 @@ public class Tracker {
     }
 
     public List<Item> findByName(String key) {
-        Item[] rsl = new Item[items.size()];
-        int count = 0;
-        for (int index = 0; index < items.size(); index++) {
-            if (items.get(index).getName().equals(key)) {
-                rsl[count] = items.get(index);
-                count++;
+        List<Item> rsl = new ArrayList<>();
+        for (Item item : items) {
+            if (item.getName().equals(key)) {
+                rsl.add(item);
             }
         }
-        return new ArrayList<>(items);
+        return rsl;
     }
 
     private int indexOf(int id) {

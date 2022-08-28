@@ -10,7 +10,6 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.IsNull.nullValue;
 
 public class TrackerTest {
-@Disabled
     @Test
     public void whenTestFindById() {
         Tracker tracker = new Tracker();
@@ -20,7 +19,6 @@ public class TrackerTest {
         assertThat(result.getName(), is(item.getName()));
     }
 
-    @Disabled
     @Test
     public void whenTestFindAll() {
         Tracker tracker = new Tracker();
@@ -32,7 +30,6 @@ public class TrackerTest {
         assertThat(result.getName(), is(first.getName()));
     }
 
-    @Disabled
     @Test
     public void whenTestFindByNameCheckArrayLength() {
         Tracker tracker = new Tracker();
@@ -47,7 +44,6 @@ public class TrackerTest {
         assertThat(result.length, is(3));
     }
 
-    @Disabled
     @Test
     public void whenTestFindByNameCheckSecondItemName() {
         Tracker tracker = new Tracker();
@@ -62,22 +58,19 @@ public class TrackerTest {
         assertThat(result[1].getName(), is(second.getName()));
     }
 
-    @Disabled
     @Test
     public void whenReplace() {
-        ArrayList<Item> items = new ArrayList<>();
         Tracker tracker = new Tracker();
         Item bug = new Item();
-        int id = bug.getId();
         bug.setName("Bug");
-        items.add(bug);
+        tracker.add(bug);
+        int id = bug.getId();
         Item bugWithDesc = new Item();
         bugWithDesc.setName("Bug with description");
         tracker.replace(id, bugWithDesc);
         assertThat(tracker.findById(id).getName(), is("Bug with description"));
     }
 
-    @Disabled
     @Test
     public void whenDelete() {
     ArrayList<Item> items = new ArrayList<>();
