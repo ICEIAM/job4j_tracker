@@ -1,23 +1,20 @@
 package ru.job4j.bank;
 
-import ru.job4j.bank.Account;
-import ru.job4j.bank.User;
-
 import java.util.*;
 
 public class BankService {
     private final Map<User, List<Account>> users = new HashMap<>();
 
     public void addUser(User user) {
-        if (!users.containsKey(user)) {
-            users.put(user, new ArrayList<>());
-        }
+        users.putIfAbsent(user, new ArrayList<>());
     }
 
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
-        if (!users.containsKey(account)) {
+        if (user != null) {
+            if (!users.get(user).contains(account)) {
             users.get(user).add(account);
+            }
         }
     }
 
@@ -32,23 +29,25 @@ public class BankService {
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
         if (user != null) {
-            if (users.containsKey(requisite)) {
-                users.putIfAbsent(user, getAccounts(user));
+            Account account = (Account) users.get(user);
+            if (account.equals(requisite)) {
+                return account;
             }
         }
-        return (Account) getAccounts(user);
+        return null;
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
-         if (findByRequisite(srcPassport, srcRequisite) != null
-                && findByRequisite(destPassport, destRequisite) != null) {
+        Account one = findByRequisite(srcPassport, srcRequisite);
+        Account two = findByRequisite(destPassport, destRequisite);
+         if (one != null && two != null) {
             double srcBalance = findByRequisite(srcPassport, srcRequisite).getBalance();
             double destBalance = findByRequisite(srcPassport, srcRequisite).getBalance();
              if (srcBalance >= amount) {
-                 findByRequisite(srcPassport, srcRequisite).setBalance(destBalance + amount);
-                 findByRequisite(destPassport, destRequisite).setBalance(srcBalance - amount);
+                 one.setBalance(destBalance + amount);
+                 two.setBalance(srcBalance - amount);
                  rsl = true;
              }
         }
