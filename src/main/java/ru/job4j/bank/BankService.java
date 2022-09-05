@@ -29,9 +29,10 @@ public class BankService {
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
         if (user != null) {
-            Account account = (Account) users.get(user);
-            if (account.equals(requisite)) {
-                return account;
+            for (Account account : users.get(user)) {
+                if (account.getRequisite().equals(requisite)) {
+                    return account;
+                }
             }
         }
         return null;
@@ -42,14 +43,10 @@ public class BankService {
         boolean rsl = false;
         Account one = findByRequisite(srcPassport, srcRequisite);
         Account two = findByRequisite(destPassport, destRequisite);
-         if (one != null && two != null) {
-            double srcBalance = findByRequisite(srcPassport, srcRequisite).getBalance();
-            double destBalance = findByRequisite(srcPassport, srcRequisite).getBalance();
-             if (srcBalance >= amount) {
-                 one.setBalance(destBalance + amount);
-                 two.setBalance(srcBalance - amount);
-                 rsl = true;
-             }
+        if (one != null && two != null && one.getBalance() >= amount) {
+            one.setBalance(one.getBalance() - amount);
+            two.setBalance(two.getBalance() + amount);
+            rsl = true;
         }
         return rsl;
     }
