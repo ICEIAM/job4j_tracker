@@ -2,13 +2,32 @@ package ru.job4j.bank;
 
 import java.util.*;
 
+/**
+ * Класс представляет из себя реализацию банковского приложения.
+ * @author Дмитрий Лукин.
+ * @version 1.1
+ */
 public class BankService {
+    /**
+     * Поле пользователя системы.
+     */
     private final Map<User, List<Account>> users = new HashMap<>();
 
+    /**
+     * Метод проверяет наличие пользователя и создает его, если таковой отсутствует.
+     * @param user пользователь, которого мы хотим проверить и добавить.
+     */
     public void addUser(User user) {
         users.putIfAbsent(user, new ArrayList<>());
     }
 
+    /**
+     * Метод позволяет создать счет пользователя.
+     * Методом findByPassport ищется пользователь по паспорту, затем получаем информацию по счетам.
+     * Если вводимого счета у пользователя нет, то он создается.
+     * @param passport паспорт пользователя.
+     * @param account счет пользователя.
+     */
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
         if (user != null) {
@@ -18,6 +37,11 @@ public class BankService {
         }
     }
 
+    /**
+     * Метод позволяет найти пользвателя по данным паспорта с помощью цикла for-each и метода keySet.
+     * @param passport паспорт пользователя.
+     * @return возвращаем пользователя.
+     */
     public User findByPassport(String passport) {
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
@@ -26,6 +50,14 @@ public class BankService {
         } return null;
     }
 
+    /**
+     * Метод позволяет найти пользователя по реквизитам.
+     * Сначала используется метод findByPassport для поиска пользователя.
+     * Затем ищется конкретный счет среди списка всех счетов пользователя.
+     * @param passport паспорт.
+     * @param requisite конкретные реквизиты.
+     * @return возвращаем нужный счет.
+     */
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
         if (user != null) {
@@ -38,6 +70,17 @@ public class BankService {
         return null;
     }
 
+    /**
+     * Метод, который позволяет перечислить средства с одного счета на другой.
+     * Если на первом счете (с которого переводят) недостаточно средств, то метод возвращает false.
+     * Методом setBalance меняются состояния счетов.
+     * @param srcPassport Паспорт переводимого счета.
+     * @param srcRequisite Реквизит переводимого счета.
+     * @param destPassport Паспорт счета, на который переводят средства.
+     * @param destRequisite Реквизиты счета, на который переводят средства.
+     * @param amount Сумма переводимых средств
+     * @return возвращает, прошла ли процедура.
+     */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
