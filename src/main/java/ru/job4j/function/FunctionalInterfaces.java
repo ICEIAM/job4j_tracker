@@ -27,7 +27,6 @@ public class FunctionalInterfaces {
         Function<String, String> func = (y) -> y.toUpperCase(Locale.ROOT);
         for (String y : strings) {
             con.accept(func.apply(y));
-        System.out.println(y.toUpperCase());
         }
     }
 }
