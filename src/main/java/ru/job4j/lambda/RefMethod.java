@@ -10,7 +10,7 @@ public class RefMethod {
                 "Ivan",
                 "Petr Arsentev"
         );
-        Consumer<String> out = System.out::println;
+        Consumer<String> out = RefMethod::cutOut;
         names.forEach(out);
     }
 
