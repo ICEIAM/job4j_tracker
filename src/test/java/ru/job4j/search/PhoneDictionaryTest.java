@@ -1,8 +1,10 @@
 package ru.job4j.search;
 
+import org.assertj.core.api.AbstractBigDecimalAssert;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -28,5 +30,5 @@ public class PhoneDictionaryTest {
         );
         ArrayList<Person> persons = phones.find("213");
         assertTrue(persons.isEmpty());
-        }
     }
+}
