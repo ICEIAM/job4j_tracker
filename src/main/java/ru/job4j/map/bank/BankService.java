@@ -1,8 +1,6 @@
-package ru.job4j.bank;
+package ru.job4j.map.bank;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Класс представляет из себя реализацию банковского приложения.
@@ -62,8 +60,9 @@ public class BankService {
      * @return возвращаем нужный счет.
      */
     public Account findByRequisite(String passport, String requisite) {
-        if (findByPassport(passport) != null) {
-            return users.get(findByPassport(passport))
+        User foundPassport = findByPassport(passport);
+        if (foundPassport != null) {
+            return users.get(foundPassport)
                     .stream()
                     .filter(account -> account.getRequisite().equals(requisite))
                     .findFirst()
