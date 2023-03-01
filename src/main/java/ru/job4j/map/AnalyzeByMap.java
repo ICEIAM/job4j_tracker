@@ -1,8 +1,5 @@
 package ru.job4j.map;
 
-import ru.job4j.bank.Account;
-import ru.job4j.bank.User;
-
 import java.util.*;
 
 public class AnalyzeByMap {
